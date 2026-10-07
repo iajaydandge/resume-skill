@@ -1,0 +1,112 @@
+% Resume Template
+% Jinja2 template rendered with resume data dictionary containing `identity` and `content`.
+
+\documentclass[11pt]{article}
+\usepackage[
+  a4paper,
+  top=0.42in,
+  bottom=0.42in,
+  left=0.45in,
+  right=0.45in
+]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\raggedright
+\pagestyle{empty}
+
+% Font Configuration:
+% Uses Latin Modern (lmodern), the standard vector Computer Modern font in TeX.
+% Alternative fonts can be enabled if desired:
+%   \usepackage{charter}   % Bitstream Charter
+%   \usepackage{newtxtext} % Times Roman
+\usepackage{lmodern}
+
+% Section formatting
+\titleformat{\section}
+  {\bfseries\large}
+  {}
+  {0pt}
+  {}
+  [\vspace{1pt}\titlerule\vspace{-6pt}]
+
+% Bullet lists
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$}
+\setlist[itemize]{itemsep=-2.5pt, leftmargin=12pt, topsep=3pt, parsep=0pt, partopsep=0pt}
+
+\begin{document}
+
+%% Identity & Contact
+{% set id = content["identity"] if (content["identity"] is defined and content["identity"]) else identity %}
+
+\centerline{\Huge \textbf{ {{ id["name"] | latex }} }}
+\vspace{6pt}
+
+{\centering\small
+  {% if id["phone"] %}\href{tel:{{ id["phone"] | replace(" ", "") }}}{ {{ id["phone"] | latex }} } \enspace$\bullet$\enspace {% endif %}
+  \href{mailto:{{ id["email"] }}}{ {{ id["email"] | latex }} }
+  {% if id["github"] %} \enspace$\bullet$\enspace \href{https://{{ id["github"] }}}{ {{ id["github"] | latex }} }{% endif %}
+  {% if id["linkedin"] %} \enspace$\bullet$\enspace \href{https://{{ id["linkedin"] }}}{ {{ id["linkedin"] | latex }} }{% endif %}
+  {% if id["portfolio"] %} \enspace$\bullet$\enspace \href{https://{{ id["portfolio"] }}}{ {{ id["portfolio"] | latex }} }{% endif %}
+\par}
+\vspace{-6pt}
+
+%% Summary
+{% if content["summary"] %}
+\section*{Summary}
+{{ content["summary"] | latex }}
+{% endif %}
+
+%% Work Experience
+{% if content["experience"] %}
+\section*{Work Experience}
+{% for exp in content["experience"] %}
+\textbf{ {{ exp["role"] | latex }}, {{ exp["organization"] | latex }} }
+\hfill {{ exp["start"] | latex }} \textendash{} {{ exp["end"] | latex if exp["end"] else "Present" }} \\[2pt]
+{% for proj in exp["projects"] %}
+\vspace{2pt}
+\textbf{ {{ proj["name"] | latex }} } \\
+\vspace{-7pt}
+\begin{itemize}
+{% for bullet in proj["highlights"] %}
+  \item {{ bullet | latex }}
+{% endfor %}
+\end{itemize}
+\vspace{3pt}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+%% Projects
+{% if content["projects"] %}
+\section*{Projects}
+{% for project in content["projects"] %}
+\textbf{ {{- project["name"] | latex -}} }{% if project["subtitle"] %} \textendash{} {{ project["subtitle"] | latex }}{% endif %}{% if project["url"] %} \hfill \href{https://{{ project["url"] }}}{ {{ project["url"] | latex }} }{% endif %} \\
+\vspace{-7pt}
+\begin{itemize}
+{% for bullet in project["highlights"] %}
+  \item {{ bullet | latex }}
+{% endfor %}
+\end{itemize}
+\vspace{2pt}
+{% endfor %}
+{% endif %}
+
+%% Skills
+{% if content["skills"] %}
+\section*{Skills}
+{% for skill in content["skills"] %}
+\textbf{ {{ skill["label"] | latex }}: }
+{{ skill["items"] | map("latex") | join(", ") }} \\[2pt]
+{% endfor %}
+{% endif %}
+
+%% Education
+{% if content["education"] %}
+\section*{Education}
+{% for edu in content["education"] %}
+\textbf{ {{ edu["institution"] | latex }} } \textendash{} {{ edu["degree"] | latex }} in {{ edu["field"] | latex }}{% if edu["gpa"] %}, GPA: {{ edu["gpa"] }}{% endif %} \hfill {{ edu["graduation"] | latex }} \\[2pt]
+{% endfor %}
+{% endif %}
+
+\end{document}

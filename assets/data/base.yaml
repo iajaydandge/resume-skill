@@ -1,0 +1,86 @@
+# Master Resume Data Schema
+# Matches assets/resume.tex.jinja2 and engineering resume guidelines
+
+identity:
+  name: "John Doe"
+  email: "john.doe@example.com"
+  phone: "555-019-2834"
+  github: "github.com/johndoe"
+  linkedin: "linkedin.com/in/johndoe"
+  portfolio: "johndoe.dev"
+
+summary: "Senior Systems Engineer with 8 years of experience architecting high-throughput distributed systems, cloud infrastructure, and real-time event streaming pipelines."
+
+experience:
+  - role: "Senior Systems Engineer"
+    organization: "Acme Cloud Infrastructure"
+    start: "Mar 2022"
+    end: "Present"
+    projects:
+      - name: "Distributed Telemetry & Event Streaming Platform"
+        highlights:
+          - "Architected distributed event streaming pipeline ingesting 45M messages daily using Apache Kafka and Go"
+          - "Reduced database query latency by 58% by implementing Redis caching layer across 14 microservices"
+          - "Automated canary deployment verification via Prometheus metrics, eliminating production rollbacks"
+      - name: "Container Fleet Optimization"
+        highlights:
+          - "Decreased monthly AWS infrastructure spend by $4,200 by migrating containers to ARM64 Graviton instances"
+          - "Diagnosed memory fragmentation in worker pool, cutting p99 task execution latency from 420ms to 85ms"
+
+  - role: "Software Engineer"
+    organization: "Nexus Distributed Systems"
+    start: "Jun 2019"
+    end: "Feb 2022"
+    projects:
+      - name: "High-Throughput Storage Engine"
+        highlights:
+          - "Built LSM-tree key-value storage engine in C++ achieving 120k write IOPS on NVMe SSD arrays"
+          - "Reduced CI test execution time from 28 minutes to 9 minutes by implementing distributed test sharding"
+          - "Refactored legacy REST interfaces to gRPC with Protocol Buffers, cutting network payload overhead by 62%"
+
+projects:
+  - name: "Raft Distributed Consensus Engine"
+    url: "github.com/johndoe/raft-engine"
+    highlights:
+      - "Implemented Raft consensus algorithm in Go with leader election, log compaction, and membership changes"
+      - "Validated zero-data-loss guarantees under simulated network partitions across 7 virtual nodes via chaos testing"
+
+  - name: "Async HTTP Gateway"
+    url: "github.com/johndoe/async-gw"
+    highlights:
+      - "Engineered non-blocking event-driven reverse proxy in Rust sustaining 65k concurrent WebSocket connections"
+      - "Integrated dynamic rate-limiting using distributed token-bucket algorithm with sub-ms evaluation latency"
+
+skills:
+  - label: "Languages"
+    items:
+      - "Go"
+      - "C++"
+      - "Python"
+      - "Rust"
+      - "SQL"
+      - "Bash"
+  - label: "Technologies"
+    items:
+      - "Docker"
+      - "Kubernetes"
+      - "Apache Kafka"
+      - "Redis"
+      - "PostgreSQL"
+      - "gRPC"
+      - "AWS"
+  - label: "Tools"
+    items:
+      - "Git"
+      - "Linux"
+      - "Terraform"
+      - "Prometheus"
+      - "Grafana"
+      - "XeLaTeX"
+
+education:
+  - institution: "University of California, Berkeley"
+    degree: "Bachelor of Science"
+    field: "Computer Science"
+    graduation: "May 2019"
+    gpa: "3.85"

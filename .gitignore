@@ -1,0 +1,20 @@
+# Build artifacts
+build/
+*.pdf
+*.aux
+*.log
+*.out
+*.toc
+
+# Python & UV caches
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.ruff_cache/
+.pytest_cache/
+
+# Local applications or sensitive data
+/applications/
+/data/
+!assets/data/
